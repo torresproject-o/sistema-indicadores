@@ -19,7 +19,7 @@ export const login = async (req, res) => {
     }
 
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET || 'supersecretkey', {
-      expiresIn: 86400, // 24 hours
+      expiresIn: 86400, // 24 horas
     });
 
     res.status(200).json({

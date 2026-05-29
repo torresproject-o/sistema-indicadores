@@ -64,9 +64,9 @@ const Dashboard = () => {
       setMessage({ type: 'success', text: 'Archivo cargado y procesado exitosamente.' });
       setTimeout(() => setMessage({ type: '', text: '' }), 5000);
       setFile(null);
-      // Reset input
+      // Restablecer entrada
       document.getElementById('formFile').value = '';
-      // Refresh data
+      // Actualizar datos
       fetchData();
     } catch (error) {
       setMessage({ type: 'danger', text: error.response?.data?.message || 'Error al cargar el archivo.' });
