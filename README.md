@@ -55,7 +55,7 @@ La aplicación React estará disponible en `http://localhost:5173`.
 * `/backend`: API REST (Node.js + Express). Controladores para autenticación, subida de archivos y dashboard.
 * `/frontend`: SPA (React + Vite). Componentes, páginas y contexto de autenticación.
 
-## ✨ Funcionalidades
+## Funcionalidades
 * **Autenticación (Login y registro):** Interfaz limpia con Bootstrap Cards y protección con JWT.
 * **Carga de Archivos:** Acepta `.csv` y `.xlsx`, insertando los datos de forma estructurada.
 * **Dashboard Principal:** Visualización responsiva de KPIs y gráficos usando Recharts.
