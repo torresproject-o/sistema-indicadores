@@ -1,0 +1,73 @@
+import React, { useState, useContext } from 'react';
+import { Container, Row, Col, Card, Form, Button, Alert } from 'react-bootstrap';
+import { AuthContext } from '../context/AuthContext';
+import { useNavigate, Link } from 'react-router-dom';
+import api from '../services/api';
+
+const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    try {
+      const response = await api.post('/auth/login', { email, password });
+      login(response.data);
+      navigate('/');
+    } catch (err) {
+      setError(err.response?.data?.message || 'Error al iniciar sesión');
+    }
+  };
+
+  return (
+    <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: '100vh' }}>
+      <Row className="w-100">
+        <Col md={{ span: 6, offset: 3 }} lg={{ span: 4, offset: 4 }}>
+          <Card className="card-shadow">
+            <Card.Body className="p-4">
+              <h2 className="text-center mb-4">Iniciar Sesión</h2>
+              {error && <Alert variant="danger">{error}</Alert>}
+              <Form onSubmit={handleSubmit}>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Correo Electrónico</Form.Label>
+                  <Form.Control 
+                    type="email" 
+                    placeholder="Ingrese su correo" 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-4" controlId="formBasicPassword">
+                  <Form.Label>Contraseña</Form.Label>
+                  <Form.Control 
+                    type="password" 
+                    placeholder="Contraseña" 
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </Form.Group>
+                
+                <Button variant="primary" type="submit" className="w-100 mb-3">
+                  Ingresar
+                </Button>
+                
+                <div className="text-center">
+                  ¿No tienes cuenta? <Link to="/register">Regístrate</Link>
+                </div>
+              </Form>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
+  );
+};
+
+export default Login;
